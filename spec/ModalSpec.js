@@ -1,9 +1,14 @@
-
+var modalSettings = {
+			dialogID: 'galleryModal',
+			modalItems: '.j-Gallery',
+			hideClass: 'hide',
+			bodyClass: 'stopscroll'
+		};
 
 
 beforeEach(function() {
   loadFixtures('gallery.html');
-  Modal();
+  Modal(modalSettings);
 });
 
 
@@ -27,9 +32,9 @@ describe('Modal', function() {
 
 	it('should not open link upon clicking', function() {
 
-		var spyEvent = spyOnEvent( '.j-Gallery', 'click' );
-		$('.j-Gallery')[0].click();
-		expect('click').toHaveBeenPreventedOn('.j-Gallery');
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenPreventedOn(modalSettings.modalItems);
 		expect(spyEvent).toHaveBeenPrevented();
 
 	});
@@ -38,9 +43,9 @@ describe('Modal', function() {
 
 	it('should open modal upon clicking on link', function() {
 
-		var spyEvent = spyOnEvent( '.j-Gallery', 'click' );
-		$('.j-Gallery')[0].click();
-		expect('click').toHaveBeenTriggeredOn('.j-Gallery');
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
 		expect(spyEvent).toHaveBeenTriggered();
 
 		expect($('#galleryModal')).toBeVisible();
@@ -49,14 +54,45 @@ describe('Modal', function() {
 
 
 
+	it('body should have the bodyClass setting when modal open', function() {
+
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
+		expect(spyEvent).toHaveBeenTriggered();
+
+		expect($('body')).toHaveClass(modalSettings.bodyClass);
+
+	});
+
+
+
+	it('body should not have the bodyClass setting when modal closed', function() {
+
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
+		expect(spyEvent).toHaveBeenTriggered();
+
+		var spyCloseEvent = spyOnEvent( '#galleryModal', 'click' );
+		$('#galleryModal').click();
+		expect('click').toHaveBeenTriggeredOn('#galleryModal');
+		expect(spyEvent).toHaveBeenTriggered();
+
+		expect($('body')).not.toHaveClass(modalSettings.bodyClass);
+
+	});
+
+
+
 	it('should show the image from the href in the modal', function() {
 
-		var spyEvent = spyOnEvent( '.j-Gallery', 'click' );
-		var clickItem = $('.j-Gallery')[0]
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		var clickItem = $(modalSettings.modalItems)[0]
 
 		clickItem.click();
 
-		expect('click').toHaveBeenTriggeredOn('.j-Gallery');
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
 		expect(spyEvent).toHaveBeenTriggered();
 
 		expect($('#galleryModal')).toBeVisible();
@@ -68,9 +104,9 @@ describe('Modal', function() {
 
 	it('should close the modal upon clicking on the open modal', function() {
 
-		var spyEvent = spyOnEvent( '.j-Gallery', 'click' );
-		$('.j-Gallery')[0].click();
-		expect('click').toHaveBeenTriggeredOn('.j-Gallery');
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
 		expect(spyEvent).toHaveBeenTriggered();
 
 
@@ -88,9 +124,9 @@ describe('Modal', function() {
 
 	it('should reuse the modal in the DOM on opening subsequent items', function() {
 
-		var spyEvent = spyOnEvent( '.j-Gallery', 'click' );
-		$('.j-Gallery')[0].click();
-		expect('click').toHaveBeenTriggeredOn('.j-Gallery');
+		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
 		expect(spyEvent).toHaveBeenTriggered();
 
 
@@ -101,9 +137,9 @@ describe('Modal', function() {
 
 		expect($('#galleryModal')).toHaveClass('hide');
 
-		var spyEvent2 = spyOnEvent( '.j-Gallery', 'click' );
-		$('.j-Gallery')[0].click();
-		expect('click').toHaveBeenTriggeredOn('.j-Gallery');
+		var spyEvent2 = spyOnEvent( modalSettings.modalItems, 'click' );
+		$(modalSettings.modalItems)[0].click();
+		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
 		expect(spyEvent2).toHaveBeenTriggered();
 
 		expect($('#galleryModal')).toBeVisible();
