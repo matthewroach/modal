@@ -12,7 +12,7 @@ It was written to be used on my [blog](http://matthewroach.me) as an image modal
 1. Grab a copy of /src/modal.js and make it aviable on your page
 2. Add the following CSS to your styles
 
-```
+```css
 	#galleryModal {
 		background: rgba(50, 50, 50, 0.5);
 		height: 100%;
