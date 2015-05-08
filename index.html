@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Gallery Demo</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	<style>
+
+		.container {
+			display: inline-block;
+		}
+
+		p {
+			float: left;
+			width: 25%;
+		}
+
+		img {
+			height: auto;
+			text-align: center;
+			max-width: 90%;
+		}
+
+		.hide {
+			display: none;
+		}
+
+		#galleryModal {
+			background: rgba(50, 50, 50, 0.5);
+			height: 100%;
+			left: 0;
+			position: fixed;
+			text-align: center;
+			top: 0;
+			width: 100%;
+			z-index: 100000;
+		}
+		#galleryModal img {
+			height: 85vh;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	</style>
+
+</head>
+<body>
+
+	<div class="container">
+		<h1>Gallery Demo</h1>
+
+		<p>
+			<a href="http://matthewroach.me/wp-content/uploads/2015/03/nexus-pen-lay-on-side-1024x429.jpg" class="j-Gallery">
+				<img alt="" src="http://matthewroach.me/wp-content/uploads/2015/03/nexus-pen-lay-on-side-1024x429.jpg" title="">
+			</a>
+		</p>
+
+		<p>
+			<a href="http://matthewroach.me/wp-content/uploads/2015/03/nexus-pen-stood-up-755x1024.jpg" class="j-Gallery">
+				<img src="http://matthewroach.me/wp-content/uploads/2015/03/nexus-pen-stood-up-755x1024.jpg" alt="IMG_0003.JPG" width="2250" height="3000" />
+			</a>
+		</p>
+
+	</div>
+
+	<script type='text/javascript' src='src/modal.js'></script>
+
+</body>
+</html>
