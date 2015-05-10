@@ -29,5 +29,6 @@ It was written to be used on my [blog](http://matthewroach.me) as an image modal
 		position: relative;
 		top: 50%;
 		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
 	}
 ```
