@@ -1,6 +1,6 @@
 {
   "framework": "jasmine",
-  "test_page": "SpecRunner.html",
+  "test_page": "SpecRunner.mustache",
   "src_files": [
   	"src/**/*.js",
   	"spec/**/*.js"
@@ -8,6 +8,7 @@
 	"launch_in_dev": [
     "Chrome",
     "Firefox",
-    "IE"
+    "IE",
+    "Opera"
   ]
 }
