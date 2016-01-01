@@ -5,7 +5,7 @@
 
 
 
-	function modal(_settings) {
+	function modal( _settings ) {
 
 
 		var self = this;
@@ -38,7 +38,7 @@
 
 
 
-		// Builds the Modal Elemetns and appends them to the body
+		// Builds the Modal Elements and appends them to the body
 		var createModal = function() {
 			var modal = document.createElement('div');
 			modal.id = defaults.dialogID;
@@ -76,9 +76,9 @@
 		// Hide the modal from view, but leave HTML in page, and remove class
 		// the was added to the body
 		var hideModal = function() {
-			document.querySelector('body')
-				.removeChild(document.querySelector('#' + defaults.dialogID))
-				.classList.remove(defaults.bodyClass);
+			var body = document.querySelector('body');
+			body.removeChild(document.querySelector('#' + defaults.dialogID));
+			body.classList.remove(defaults.bodyClass);
 			currentItem = '';
 		};
 

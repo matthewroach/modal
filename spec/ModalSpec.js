@@ -115,34 +115,7 @@ describe('Modal', function() {
 		expect('click').toHaveBeenTriggeredOn('#galleryModal');
 		expect(spyEvent).toHaveBeenTriggered();
 
-		expect($('#galleryModal')).toHaveClass('hide');
-
-
-	});
-
-
-
-	it('should reuse the modal in the DOM on opening subsequent items', function() {
-
-		var spyEvent = spyOnEvent( modalSettings.modalItems, 'click' );
-		$(modalSettings.modalItems)[0].click();
-		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
-		expect(spyEvent).toHaveBeenTriggered();
-
-
-		var spyCloseEvent = spyOnEvent( '#galleryModal', 'click' );
-		$('#galleryModal').click();
-		expect('click').toHaveBeenTriggeredOn('#galleryModal');
-		expect(spyEvent).toHaveBeenTriggered();
-
-		expect($('#galleryModal')).toHaveClass('hide');
-
-		var spyEvent2 = spyOnEvent( modalSettings.modalItems, 'click' );
-		$(modalSettings.modalItems)[0].click();
-		expect('click').toHaveBeenTriggeredOn(modalSettings.modalItems);
-		expect(spyEvent2).toHaveBeenTriggered();
-
-		expect($('#galleryModal')).toBeVisible();
+		expect($('#galleryModal')).not.toBeInDOM();
 
 	});
 
