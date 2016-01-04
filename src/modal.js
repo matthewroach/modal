@@ -1,5 +1,5 @@
-
-
+/*global Modal:true*/
+/* exported Modal */
 
 (function() {
 
@@ -8,7 +8,6 @@
 	function modal( _settings ) {
 
 
-		var self = this;
 		var modalItems = [];
 		var currentItem;
 
@@ -98,7 +97,7 @@
 			} else {
 				return getCurrentIndex() + 1;
 			}
-		}
+		};
 
 
 
@@ -109,7 +108,7 @@
 			} else {
 				return getCurrentIndex() - 1;
 			}
-		}
+		};
 
 
 
@@ -146,7 +145,7 @@
 
 			_element.addEventListener( 'keydown', keyPressOnModal, false );
 
-		}
+		};
 
 
 
@@ -181,7 +180,7 @@
 		var overwrite = function( _settings ) {
 
 			if ( typeof(_settings) === 'object') {
-				for ( key in _settings ) {
+				for ( var key in _settings ) {
 					if ( defaults[key] ) {
 						defaults[key] = _settings[key];
 					}
