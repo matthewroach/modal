@@ -1,0 +1,49 @@
+{
+	"rules": {
+		"array-bracket-spacing": [ 2, "always", { "singleValue": false } ], // Fixable
+		"block-spacing": [ 2, "always"], // Fixable
+		"brace-style": [ 2, "1tbs", { "allowSingleLine": false } ],
+		"camelcase": [ 2, {"properties": "always"}],
+		"comma-spacing": [ 2, {"before": false, "after": true} ], // Fixable
+		"computed-property-spacing": [ 2, "always" ], // Fixable
+		"consistent-this": [ 2, "self" ],
+		"eol-last": [2], // Fixable
+		"indent": [ 2, "tab", {"SwitchCase": 1} ], // Fixable
+		"key-spacing": [ 2, { "beforeColon": false, "afterColon": true } ],
+		"new-cap": [2],
+		"no-mixed-spaces-and-tabs": [ 2, "smart-tabs" ],
+		"no-nested-ternary": [2],
+		"no-spaced-func": [2], // Fixable
+		"no-trailing-spaces": [2], // Fixable
+		"quotes": [ 2, "single" ], // Fixable
+		"require-jsdoc": [2, {
+				"require": {
+					"FunctionDeclaration": true,
+					"MethodDefinition": false,
+					"ClassDeclaration": false
+				}
+			}
+		],
+		"semi": [ 2, "always" ], // Fixable
+		"space-after-keywords": [ 2, "always" ], // Fixable
+		"space-before-blocks": [2], // Fixable
+		"space-before-function-paren": [ 2, "never" ], // Fixable
+		"space-before-keywords": [ 2, "always" ], // Fixable
+		"linebreak-style": [ 2, "unix" ],
+		"complexity": [ 2, 5 ],
+
+		"no-empty": [2],
+		"no-extra-semi": 2, // Fixable
+		"radix": [ 2, "always" ],
+		"vars-on-top": [2],
+		"no-magic-numbers": [ 2, { "ignore": [ -1, 0, 1, 2] } ],
+		"no-use-before-define": [ 2, "nofunc" ],
+		"no-multi-spaces": [ 2, { "exceptions": { "Property": false } } ], // Fixable
+		"no-redeclare": [2, {"builtinGlobals": true}]
+	},
+	"env": {
+		"es6": true,
+		"browser": true
+	},
+	"extends": "eslint:recommended"
+}
