@@ -1,0 +1,22 @@
+{
+  "name": "modal",
+  "version": "1.0.0",
+  "description": "A simple modal module",
+  "main": "index.js",
+  "scripts": {
+    "test": "testem"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewroach/modal.git"
+  },
+  "author": "Matthew Roach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthewroach/modal/issues"
+  },
+  "homepage": "https://github.com/matthewroach/modal#readme",
+  "devDependencies": {
+    "testem": "^1.1.0"
+  }
+}
