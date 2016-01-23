@@ -4,7 +4,7 @@
   "description": "A simple modal module",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/testem/testem.js ci"
+    "test": "./node_modules/testem/testem.js ci -R dot"
   },
   "repository": {
     "type": "git",
