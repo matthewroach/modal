@@ -7,6 +7,7 @@ var modalSettings = {
 
 
 beforeEach(function() {
+	jasmine.getFixtures().fixturesPath = 'base/spec/fixtures/';
   loadFixtures('gallery.html');
   Modal(modalSettings);
 });
