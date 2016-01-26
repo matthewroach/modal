@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple modal module",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start",
+    "test": "./node_modules/karma/bin/karma start --single-run",
     "docs": "./node_modules/jsdoc/jsdoc.js -c jsdoc.json",
     "es": "./node_modules/.bin/eslint src/*.js"
   },
