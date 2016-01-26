@@ -1,8 +1,13 @@
 /*global Modal:true*/
 /* exported Modal */
 
-(function() {
-
+/**
+ * Represents a modal.
+ * @namespace
+ * @class
+ * @param {stuct} _settings - A structure of settings for the modal
+ */
+Modal = (function() {
 
 
 	function modal( _settings ) {
@@ -45,21 +50,6 @@
 			modal.appendChild(document.createElement('img'));
 
 			document.body.appendChild(modal);
-		};
-
-
-
-		// Create's and Shows the modal
-		var createShowModal = function( _image ) {
-			// If the modal does not exist we need to create it and attach the close event
-			if ( !modalExists() ) {
-				createModal();
-				closeEvent();
-			}
-
-			document.querySelector('#' + defaults.dialogID + ' img').src = _image;
-			showModal();
-
 		};
 
 
@@ -112,23 +102,62 @@
 
 
 
+		/**
+		 * @private
+		 * @function closeEvent
+		 * @memberof Modal
+		 * @description Set up the close binding for clicking the modal and closing it
+		 */
+		var closeEvent = function() {
+			getModal().addEventListener( 'click', hideModal, false );
+		};
+
+
+
+		// Create's and Shows the modal
+		var createShowModal = function( _image ) {
+			// If the modal does not exist we need to create it and attach the close event
+			if ( !modalExists() ) {
+				createModal();
+				closeEvent();
+			}
+
+			document.querySelector('#' + defaults.dialogID + ' img').src = _image;
+			showModal();
+
+		};
+
+		/**
+		 * @private
+		 * @function displayImage
+		 * @memberof Modal
+		 * @description Display Image function that is tied to the event binding for each image
+		 */
+		var displayImage = function( _element ) {
+			currentItem = _element;
+			createShowModal(_element.href);
+
+			_element.addEventListener( 'keydown', openModalBindings, false );
+
+		};
+
+
 		// Handle key press on Modal
 		var keyPressOnModal = function( _event ) {
-
 			var bodyClass = Array.prototype.slice.call(document.querySelector('body').classList);
 
 			if ( bodyClass.indexOf(defaults.bodyClass) !== -1 ) {
 
-				switch ( _event.keyCode ) {
-					case 39:
-						displayImage( modalItems[getNext()] );
+				switch ( _event.keyCode.toString() ) {
+					case '39':
+						displayImage( modalItems[ getNext() ] );
 						break;
 
-					case 37:
-						displayImage( modalItems[getPrevious()] );
+					case '37':
+						displayImage( modalItems[ getPrevious() ] );
 						break;
 
-					case 27:
+					case '27':
 						hideModal();
 						break;
 				}
@@ -138,13 +167,8 @@
 
 
 
-		// Display Image
-		var displayImage = function( _element ) {
-			currentItem = _element;
-			createShowModal(_element.href);
-
-			_element.addEventListener( 'keydown', keyPressOnModal, false );
-
+		var openModalBindings = function( _event ) {
+			keyPressOnModal( _event );
 		};
 
 
@@ -157,32 +181,31 @@
 
 
 
-		// Event Bindings, set up the events to the elements passed in
+		/**
+		 * @private
+		 * @function eventBindings
+		 * @memberof Modal
+		 * @description Event Bindings, set up the events to the elements passed in
+		 */
 		var eventBindings = function( _elements ) {
+			var i = 0;
 
-			// Bind event to each element to add the ability to show modal
-			for ( var i=0; i<_elements.length; i++ ) {
-				_elements[i].addEventListener( 'click', showImage, false );
+			for ( i; i<_elements.length; i++ ) {
+				_elements[ i ].addEventListener( 'click', showImage, false );
 			}
 
 		};
 
 
 
-		// Close binding for clicking the modal and closing it
-		var closeEvent = function() {
-			getModal().addEventListener( 'click', hideModal, false );
-		};
-
-
-
 		// overwrite the default options
 		var overwrite = function( _settings ) {
+			var key = '';
 
-			if ( typeof(_settings) === 'object') {
-				for ( var key in _settings ) {
-					if ( defaults[key] ) {
-						defaults[key] = _settings[key];
+			if ( typeof(_settings) === 'object' ) {
+				for ( key in _settings ) {
+					if ( defaults[ key ] ) {
+						defaults[ key ] = _settings[ key ];
 					}
 				}
 			}
@@ -191,10 +214,15 @@
 
 
 
-		// Destroy the modal event listeners
+		/**
+		 * @function destroy
+		 * @memberof Modal
+		 * @description Destroy the modal, and all events
+		 */
 		this.destroy = function() {
-			for ( var i=0; i<modalItems.length; i++ ) {
-				modalItems[i].removeEventListener( 'click', showImage );
+			var i = 0;
+			for ( i; i<modalItems.length; i++ ) {
+				modalItems[ i ].removeEventListener( 'click', displayImage );
 			}
 		};
 
@@ -214,7 +242,7 @@
 
 
 
-	Modal = modal;
+	return modal;
 
 
 
