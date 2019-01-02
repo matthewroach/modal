@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/matthewroach/modal#readme",
   "devDependencies": {
-    "eslint": "^1.10.3",
+    "eslint": "^5.7.0",
     "jasmine-core": "^2.4.1",
     "jquery": "^2.2.0",
     "jsdoc": "^3.4.0",

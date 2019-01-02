@@ -5,34 +5,31 @@
  * Represents a modal.
  * @namespace
  * @class
- * @param {stuct} _settings - A structure of settings for the modal
+ * @param {stuct} settings - A structure of settings for the modal
  */
 Modal = (function() {
 
 
-	function modal( _settings ) {
-
+	function modal( settings ) {
 
 		var modalItems = [];
 		var currentItem;
 
 
-
 		// Default settings for Gallery
 		var defaults = {
-			dialogID: 'galleryModal',
-			modalItems: '.j-Gallery',
-			hideClass: 'hide',
-			bodyClass: 'stopscroll'
+			dialogID: "gallery-modal",
+			dialogClass: "gallery-modal",
+			modalItems: ".j-Gallery",
+			hideClass: "hide",
+			openBodyClass: "stopscroll"
 		};
-
 
 
 		// Helper function to return the modal element object
 		var getModal = function() {
-			return document.querySelector('#' + defaults.dialogID);
+			return document.querySelector("#" + defaults.dialogID);
 		};
-
 
 
 		// Does the modal exists, returning true or false
@@ -41,43 +38,43 @@ Modal = (function() {
 		};
 
 
-
 		// Builds the Modal Elements and appends them to the body
 		var createModal = function() {
-			var modal = document.createElement('div');
+			var modal = document.createElement("div");
 			modal.id = defaults.dialogID;
 
-			modal.appendChild(document.createElement('img'));
+			modal.classList.add(defaults.dialogClass);
+
+			modal.appendChild(document.createElement("img"));
 
 			document.body.appendChild(modal);
 		};
 
 
-
 		// Show the modal to the user and add a CSS class to the body
 		var showModal = function() {
 			getModal().classList.remove(defaults.hideClass);
-			document.querySelector('body').classList.add(defaults.bodyClass);
+			document.querySelector("body").classList.add(defaults.openBodyClass);
 		};
-
 
 
 		// Hide the modal from view, but leave HTML in page, and remove class
 		// the was added to the body
-		var hideModal = function() {
-			var body = document.querySelector('body');
-			body.removeChild(document.querySelector('#' + defaults.dialogID));
-			body.classList.remove(defaults.bodyClass);
-			currentItem = '';
+		var hideModal = function(e) {
+			if (getModal() !== e.target ) {
+				return;
+			}
+			var body = document.querySelector("body");
+			body.removeChild(document.querySelector("#" + defaults.dialogID));
+			body.classList.remove(defaults.openBodyClass);
+			currentItem = "";
 		};
-
 
 
 		// Return index of the current item in view
-		var getCurrentIndex = function( ) {
+		var getCurrentIndex = function() {
 			return modalItems.indexOf(currentItem);
 		};
-
 
 
 		// Get the index of the next item from the object of modalItems
@@ -90,7 +87,6 @@ Modal = (function() {
 		};
 
 
-
 		// Get the index of the previous item from the object of modalItems
 		var getPrevious = function() {
 			if ( getCurrentIndex() === 0 && modalItems.length > 0 ) {
@@ -101,7 +97,6 @@ Modal = (function() {
 		};
 
 
-
 		/**
 		 * @private
 		 * @function closeEvent
@@ -109,23 +104,52 @@ Modal = (function() {
 		 * @description Set up the close binding for clicking the modal and closing it
 		 */
 		var closeEvent = function() {
-			getModal().addEventListener( 'click', hideModal, false );
+			getModal().addEventListener( "click", hideModal, false );
 		};
 
 
-
 		// Create's and Shows the modal
-		var createShowModal = function( _image ) {
+		var createShowModal = function( image ) {
 			// If the modal does not exist we need to create it and attach the close event
 			if ( !modalExists() ) {
 				createModal();
 				closeEvent();
 			}
 
-			document.querySelector('#' + defaults.dialogID + ' img').src = _image;
+			document.querySelector("#" + defaults.dialogID + " img").src = image;
 			showModal();
 
 		};
+
+
+		// Handle key press on Modal
+		var keyPressOnModal = function( event ) {
+			var openBodyClass = Array.prototype.slice.call(document.querySelector("body").classList);
+
+			if ( openBodyClass.indexOf(defaults.openBodyClass) !== -1 ) {
+
+				switch ( event.keyCode.toString() ) {
+				case "39":
+					displayImage( modalItems[ getNext() ] );
+					break;
+
+				case "37":
+					displayImage( modalItems[ getPrevious() ] );
+					break;
+
+				case "27":
+					hideModal();
+					break;
+				}
+			}
+
+		};
+
+
+		var openModalBindings = function( event ) {
+			keyPressOnModal( event );
+		};
+
 
 		/**
 		 * @private
@@ -133,52 +157,20 @@ Modal = (function() {
 		 * @memberof Modal
 		 * @description Display Image function that is tied to the event binding for each image
 		 */
-		var displayImage = function( _element ) {
-			currentItem = _element;
-			createShowModal(_element.href);
+		var displayImage = function( element ) {
+			currentItem = element;
+			createShowModal(element.href);
 
-			_element.addEventListener( 'keydown', openModalBindings, false );
-
-		};
-
-
-		// Handle key press on Modal
-		var keyPressOnModal = function( _event ) {
-			var bodyClass = Array.prototype.slice.call(document.querySelector('body').classList);
-
-			if ( bodyClass.indexOf(defaults.bodyClass) !== -1 ) {
-
-				switch ( _event.keyCode.toString() ) {
-					case '39':
-						displayImage( modalItems[ getNext() ] );
-						break;
-
-					case '37':
-						displayImage( modalItems[ getPrevious() ] );
-						break;
-
-					case '27':
-						hideModal();
-						break;
-				}
-			}
+			element.addEventListener( "keydown", openModalBindings, false );
 
 		};
-
-
-
-		var openModalBindings = function( _event ) {
-			keyPressOnModal( _event );
-		};
-
 
 
 		// Event binding function that handles the event and calls to create the modal
-		var showImage = function( _event ) {
-			_event.preventDefault();
+		var showImage = function( event ) {
+			event.preventDefault();
 			displayImage(this);
 		};
-
 
 
 		/**
@@ -187,31 +179,29 @@ Modal = (function() {
 		 * @memberof Modal
 		 * @description Event Bindings, set up the events to the elements passed in
 		 */
-		var eventBindings = function( _elements ) {
+		var eventBindings = function( elements ) {
 			var i = 0;
 
-			for ( i; i<_elements.length; i++ ) {
-				_elements[ i ].addEventListener( 'click', showImage, false );
+			for ( i; i<elements.length; i++ ) {
+				elements[ i ].addEventListener( "click", showImage, false );
 			}
 
 		};
 
 
-
 		// overwrite the default options
-		var overwrite = function( _settings ) {
-			var key = '';
+		var overwrite = function( settings ) {
+			var key = "";
 
-			if ( typeof(_settings) === 'object' ) {
-				for ( key in _settings ) {
+			if ( typeof(settings) === "object" ) {
+				for ( key in settings ) {
 					if ( defaults[ key ] ) {
-						defaults[ key ] = _settings[ key ];
+						defaults[ key ] = settings[ key ];
 					}
 				}
 			}
 
 		};
-
 
 
 		/**
@@ -222,15 +212,14 @@ Modal = (function() {
 		this.destroy = function() {
 			var i = 0;
 			for ( i; i<modalItems.length; i++ ) {
-				modalItems[ i ].removeEventListener( 'click', displayImage );
+				modalItems[i].removeEventListener("click", displayImage);
 			}
 		};
 
 
-
 		// This is run when a new instance of Modal is created.
-		if ( _settings ) {
-			overwrite(_settings);
+		if (settings) {
+			overwrite(settings);
 		}
 
 		modalItems = Array.prototype.slice.call(document.querySelectorAll(defaults.modalItems));
@@ -241,9 +230,7 @@ Modal = (function() {
 	}
 
 
-
 	return modal;
-
 
 
 })();
