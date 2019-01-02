@@ -16,10 +16,11 @@ It was written to be used on my [blog](http://matthewroach.me) as an image modal
 
 ``` javascript
 var settings = {
-	dialogID: 'galleryModal',
+	dialogID: 'gallery-modal',
+	dialogClass: "gallery-modal",
 	modalItems: '.j-Gallery',
 	hideClass: 'hide',
-	bodyClass: 'stopscroll'
+	openBodyClass: 'stopscroll'
 };
 
 var demoGallery = new Modal( settings );
@@ -27,7 +28,7 @@ var demoGallery = new Modal( settings );
 
 
 ```css
-#galleryModal {
+.gallery-modal {
 	background: rgba(50, 50, 50, 0.5);
 	height: 100%;
 	left: 0;
@@ -38,7 +39,7 @@ var demoGallery = new Modal( settings );
 	z-index: 100000;
 }
 
-#galleryModal img {
+.gallery-modal img {
 	height: 85vh;
 	position: relative;
 	top: 50%;
