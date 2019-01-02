@@ -10,7 +10,7 @@ It was written to be used on my [blog](http://matthewroach.me) as an image modal
 ## To use
 
 1. Grab a copy of /src/modal.js and make it available on your page
-2. Create an instance of Modal with the required settings, settings, and example below
+2. Create an instance of Modal with the required settings, and example below
 3. add relevant CSS to your styles, example below
 
 
